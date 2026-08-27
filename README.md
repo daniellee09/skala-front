@@ -69,6 +69,74 @@ VITE_WEATHER_API_KEY=여기에_키
 
 정의되지 않은 주소로 들어가면 404 페이지가 뜹니다.
 
+### 메인 대시보드
+
+![메인 대시보드](docs/screenshots/01-dashboard.png)
+
+- 도시 카드는 `v-for` 로 그리고, 25도 기준으로 더움 · 선선함 뱃지가 갈림
+- 로딩 중에는 `el-skeleton`, 실패하면 `el-alert` 로 상태를 나눠 표시
+- 하단 상태바는 카드 클릭 이벤트(`select-card`)를 받아 갱신
+
+### 온도 단위 전환 — Pinia
+
+![화씨 전환](docs/screenshots/09-dashboard-fahrenheit.png)
+
+- 네비게이션 바의 `el-segmented` 를 누르면 전역 스토어의 `unit` 이 바뀜
+- 토글 버튼과 카드는 사촌 관계라 props 로는 중간 컴포넌트가 배달만 하게 됨 → 스토어로 건너뜀
+- **원본은 섭씨로 두고 표시 시점에만 변환** → 91°F 로 바뀌어도 더움 판정은 그대로
+
+### 검색과 URL 동기화
+
+![검색 필터](docs/screenshots/10-dashboard-search.png)
+
+- `computed` 로 목록을 걸러서 검색어가 바뀔 때만 재계산
+- 검색어를 쿼리스트링에 반영 → 위 화면은 `/?search=수원` 으로 직접 접근한 결과
+- 그대로 새로고침하거나 링크를 공유해도 검색 상태가 유지됨
+
+### 도시 상세 — Axios
+
+![상세 페이지](docs/screenshots/02-detail.png)
+
+- 현재 날씨 → 대기질 · 5일 예보 순으로 호출. 뒤 두 개는 서로 무관해서 `Promise.all` 로 동시에
+- OpenWeatherMap(날씨 · 대기오염) 과 Open-Meteo(예보) 두 곳을 씀
+- 대기질 등급에 따라 `el-tag` 색이 바뀌고, 예보는 `el-table` 로 표시
+
+### Code Challenge 실습 모음
+
+![Element Plus 실습](docs/screenshots/07-practice-element-plus.png)
+
+- 챕터별 탭으로 39개 실습 컴포넌트를 한 페이지에 모음
+- 위 화면은 9장 탭 — Element Plus 폼 · 수량 · 별점 · 프로그레스와 ES6+ 문법 점검
+
+<details>
+<summary>다른 탭 화면</summary>
+
+**3장 · Vue Syntax**
+
+![Vue Syntax 실습](docs/screenshots/06-practice-syntax.png)
+
+**4장 · Composition API**
+
+![Composition API 실습](docs/screenshots/08-practice-composition.png)
+
+</details>
+
+### 과제 단계별 결과물
+
+![과제 단계](docs/screenshots/03-steps.png)
+
+- 과제 1~3 의 결과물을 지우지 않고 남겨서 한 화면에서 비교
+- 과제 1·2 는 자체 완결이라 Element Plus 적용 전 모습 그대로
+
+### 서비스 소개 · 404
+
+![서비스 소개](docs/screenshots/04-about.png)
+
+![404 페이지](docs/screenshots/05-notfound.png)
+
+- 소개 페이지는 `el-timeline` 으로 과제 진행 순서를 정리
+- 없는 주소는 catch-all 라우트가 받아 `el-result` 로 안내
+
 ## 📁 폴더 구조
 
 ```
@@ -284,11 +352,11 @@ src/
 
 ## 개선하면 좋을 부분
 
-온도 변환 로직이 `WeatherCard`와 `WeatherDetailView` 두 군데에 거의 똑같이 들어가 있습니다. 예보에도 단위 변환을 적용하려면 세 번째 중복이 생깁니다. 
-**composable로 빼면 깔끔해질 것 같습니다.** 
+온도 변환 로직이 `WeatherCard`와 `WeatherDetailView` 두 군데에 거의 똑같이 들어가 있습니다. 예보에도 단위 변환을 적용하려면 세 번째 중복이 생깁니다.
+**composable로 빼면 깔끔해질 것 같습니다.**
 
 컴포넌트들이 전부 밝은 배경을 기준으로 짜여 있어서, 스캐폴딩에 딸려오던 `prefers-color-scheme` 설정을 꺼두고 라이트 테마로 통일했습니다.
 **다크모드 변경 기능도 추가하면 좋아 보입니다.**
 
-Element Plus를 전역 등록해서 쓰다 보니 사용하지 않는 컴포넌트까지 전부 번들에 들어갑니다. 
+Element Plus를 전역 등록해서 쓰다 보니 사용하지 않는 컴포넌트까지 전부 번들에 들어갑니다.
 **필요한 것만 개별 import 하거나 자동 import 플러그인을 쓰면 줄어들 것으로 보입니다.**
