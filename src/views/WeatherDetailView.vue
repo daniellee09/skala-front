@@ -66,7 +66,7 @@ watch(() => route.params.cityId, loadDetail, { immediate: true })
     <!-- el-page-header 가 뒤로가기 버튼과 제목 줄을 통째로 잡아줌 -->
     <el-page-header title="대시보드" @back="router.push('/')">
       <template #content>
-        <span class="page-title">📊 지역별 상세 기상 관측 정보</span>
+        <span class="page-title">지역별 상세 기상 관측 정보</span>
       </template>
     </el-page-header>
 
@@ -81,7 +81,7 @@ watch(() => route.params.cityId, loadDetail, { immediate: true })
 
     <el-card v-if="cityData" shadow="never" class="block">
       <template #header>
-        <strong>📍 {{ cityData.name }}</strong>
+        <span class="card-title">{{ cityData.name }}</span>
       </template>
 
       <el-descriptions :column="2" border>
@@ -103,7 +103,7 @@ watch(() => route.params.cityId, loadDetail, { immediate: true })
 
     <el-card v-if="airData" shadow="never" class="block">
       <template #header>
-        <strong>🌫️ 대기질</strong>
+        <span class="card-label">대기질</span>
       </template>
 
       <el-descriptions :column="3" border>
@@ -119,17 +119,27 @@ watch(() => route.params.cityId, loadDetail, { immediate: true })
 
     <el-card v-if="forecast.length" shadow="never" class="block">
       <template #header>
-        <strong>📅 5일 예보</strong>
-        <el-text type="info" size="small"> (Open-Meteo)</el-text>
+        <span class="card-label">5일간의 일기예보</span>
+        <el-text type="info" size="small"> Open-Meteo</el-text>
       </template>
 
       <el-table :data="forecast" stripe size="small">
         <el-table-column prop="date" label="날짜" />
-        <el-table-column label="최고">
-          <template #default="{ row }">🔺 {{ row.max }}℃</template>
+        <el-table-column label="날씨">
+          <template #default="{ row }">
+            <span class="fc-icon">{{ row.icon }}</span>
+            {{ row.status }}
+          </template>
         </el-table-column>
-        <el-table-column label="최저">
-          <template #default="{ row }">🔻 {{ row.min }}℃</template>
+        <el-table-column label="최고" width="90">
+          <template #default="{ row }">
+            <span class="fc-max">{{ row.max }}℃</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="최저" width="90">
+          <template #default="{ row }">
+            <span class="fc-min">{{ row.min }}℃</span>
+          </template>
         </el-table-column>
       </el-table>
     </el-card>
@@ -143,11 +153,42 @@ watch(() => route.params.cityId, loadDetail, { immediate: true })
   min-height: 200px;
 }
 .page-title {
-  font-size: 15px;
+  /* 뒤로가기 줄에 붙는 안내 문구라 라벨 크기로 낮춤 */
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-text-soft);
+}
+
+/* 도시명은 이 페이지의 주인공이라 제목 크기를 유지 */
+.card-title {
+  font-size: 18px;
   font-weight: 700;
+  letter-spacing: -0.01em;
   color: var(--color-heading);
+}
+
+/* 대기질 · 일기예보는 묶음 이름이라 대시보드 섹션 제목과 같은 규격 */
+.card-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-text-soft);
 }
 .block {
   margin-top: 16px;
+}
+
+/* 예보 표 — 🔺🔻 대신 색으로 최고·최저를 구분 */
+.fc-icon {
+  margin-right: 4px;
+}
+.fc-max {
+  font-weight: 600;
+  color: #c2410c;
+}
+.fc-min {
+  font-weight: 600;
+  color: #1d4ed8;
 }
 </style>

@@ -13,7 +13,7 @@ defineProps({
 
 <template>
   <div class="search-inner">
-    <h3>🔍 도시 검색</h3>
+    <h3>도시 검색</h3>
 
     <!-- el-input 은 v-model 대신 :model-value + @input 으로도 쓸 수 있음.
          값의 주인은 여전히 부모라서 이 형태를 유지함 -->
@@ -36,9 +36,11 @@ defineProps({
 
 <style scoped>
 .search-inner h3 {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--color-heading);
+  /* 카드 안 라벨 역할이라 크게 쓰지 않고, 자간을 벌려 정돈된 느낌만 준다 */
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-text-soft);
   margin-bottom: 10px;
 }
 .search-status {

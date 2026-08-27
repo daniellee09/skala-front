@@ -51,8 +51,8 @@ const isHot = computed(() => props.cityItem.temp >= 25)
       </div>
 
       <div class="card-actions">
-        <el-tag :type="isHot ? 'danger' : 'primary'" effect="dark" round>
-          {{ isHot ? '🔥 더움' : '❄️ 선선함' }}
+        <el-tag effect="light" round size="small" :class="isHot ? 'chip-hot' : 'chip-cool'">
+          {{ isHot ? '더움' : '선선함' }}
         </el-tag>
 
         <!-- .stop 안 걸면 카드 클릭까지 같이 발동함 -->
@@ -69,6 +69,41 @@ const isHot = computed(() => props.cityItem.temp >= 25)
 </template>
 
 <style scoped>
+/* 온도 뱃지
+   단색 채움 + 이모지는 카드에서 제일 튀는 요소였다.
+   같은 색을 옅게 깔고 글자만 진하게 두는 방식으로 낮춤.
+   앞의 점이 이모지 자리를 대신한다 */
+.el-tag.chip-hot,
+.el-tag.chip-cool {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 11px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  border-width: 1px;
+}
+.el-tag.chip-hot::before,
+.el-tag.chip-cool::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.el-tag.chip-hot {
+  background: #fff2ee;
+  border-color: #ffdbcf;
+  color: #c2410c;
+}
+.el-tag.chip-cool {
+  background: #eef4ff;
+  border-color: #d5e3ff;
+  color: #1d4ed8;
+}
+
 .weather-card {
   margin-bottom: 10px;
   cursor: pointer;

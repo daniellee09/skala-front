@@ -70,7 +70,7 @@ const activeTab = ref('syntax')
 
 <template>
   <div class="practice-view">
-    <h2>🧪 Code Challenge 실습 모음</h2>
+    <h2>Code Challenge 실습 모음</h2>
 
     <nav class="tab-bar">
       <button
@@ -154,8 +154,10 @@ const activeTab = ref('syntax')
 
 <style scoped>
 .practice-view h2 {
-  font-size: 19px;
-  font-weight: 800;
+  /* 페이지 제목이라 라벨보다는 크게, 다만 800 은 과해서 700 으로 */
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--color-heading);
   margin-bottom: 14px;
 }

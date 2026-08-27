@@ -71,12 +71,31 @@ const meteoApi = axios.create({
   timeout: 5000,
 })
 
+// Open-Meteo 는 날씨를 WMO 코드(숫자)로 준다. 범위별로 묶어서 해석
+// https://open-meteo.com/en/docs 의 Weather interpretation codes
+const WMO = [
+  { codes: [0], label: '맑음', icon: '☀️' },
+  { codes: [1], label: '대체로 맑음', icon: '🌤️' },
+  { codes: [2], label: '구름 조금', icon: '⛅' },
+  { codes: [3], label: '흐림', icon: '☁️' },
+  { codes: [45, 48], label: '안개', icon: '🌫️' },
+  { codes: [51, 53, 55, 56, 57], label: '이슬비', icon: '🌦️' },
+  { codes: [61, 63, 65, 66, 67], label: '비', icon: '🌧️' },
+  { codes: [71, 73, 75, 77], label: '눈', icon: '🌨️' },
+  { codes: [80, 81, 82], label: '소나기', icon: '🌦️' },
+  { codes: [85, 86], label: '소낙눈', icon: '🌨️' },
+  { codes: [95, 96, 99], label: '뇌우', icon: '⛈️' },
+]
+
+const describeCode = (code) =>
+  WMO.find((w) => w.codes.includes(code)) ?? { label: '정보 없음', icon: '❔' }
+
 export const fetchForecast = async (lat, lon) => {
   const res = await meteoApi.get('/forecast', {
     params: {
       latitude: lat,
       longitude: lon,
-      daily: 'temperature_2m_max,temperature_2m_min',
+      daily: 'temperature_2m_max,temperature_2m_min,weather_code',
       timezone: 'Asia/Seoul',
       forecast_days: 5,
     },
@@ -84,9 +103,14 @@ export const fetchForecast = async (lat, lon) => {
 
   // 응답이 "열(column) 단위"로 와서 "행(row) 단위"로 전치해야 함
   const d = res.data.daily
-  return d.time.map((date, i) => ({
-    date,
-    max: Math.round(d.temperature_2m_max[i]),
-    min: Math.round(d.temperature_2m_min[i]),
-  }))
+  return d.time.map((date, i) => {
+    const { label, icon } = describeCode(d.weather_code[i])
+    return {
+      date,
+      max: Math.round(d.temperature_2m_max[i]),
+      min: Math.round(d.temperature_2m_min[i]),
+      status: label,
+      icon,
+    }
+  })
 }

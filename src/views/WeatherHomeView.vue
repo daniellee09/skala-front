@@ -79,7 +79,7 @@ const handleDetailJump = (id) => {
 
     <BaseDashboardCard>
       <div class="section-head">
-        <h3>🏙️ 지역별 날씨 현황</h3>
+        <h3>지역별 날씨 현황</h3>
         <el-button type="primary" plain :loading="isLoading" @click="handleRefresh">
           새로고침
         </el-button>
@@ -122,8 +122,9 @@ const handleDetailJump = (id) => {
   margin-bottom: 12px;
 }
 .section-head h3 {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--color-heading);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-text-soft);
 }
 </style>

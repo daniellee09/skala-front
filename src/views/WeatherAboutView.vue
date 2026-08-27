@@ -31,7 +31,7 @@ const stack = [
   <div class="about-view">
     <el-page-header title="대시보드" @back="handleGoHome">
       <template #content>
-        <span class="page-title">ℹ️ 서비스 소개</span>
+        <span class="page-title">서비스 소개</span>
       </template>
     </el-page-header>
 
@@ -43,7 +43,7 @@ const stack = [
     </el-card>
 
     <el-card shadow="never" class="block">
-      <template #header><strong>🧱 사용 스택</strong></template>
+      <template #header><span class="card-label">사용 스택</span></template>
       <el-table :data="stack" size="small" stripe>
         <el-table-column prop="name" label="기술" width="130" />
         <el-table-column prop="version" label="버전" width="100" />
@@ -52,7 +52,7 @@ const stack = [
     </el-card>
 
     <el-card shadow="never" class="block">
-      <template #header><strong>🗂️ 과제 진행 순서</strong></template>
+      <template #header><span class="card-label">과제 진행 순서</span></template>
       <el-timeline>
         <el-timeline-item
           v-for="step in steps"
@@ -76,10 +76,13 @@ const stack = [
   max-width: 640px;
   margin: 0 auto;
 }
-.page-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--color-heading);
+.page-title,
+.card-label {
+  /* 대시보드·상세 페이지의 섹션 제목과 같은 규격 */
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--color-text-soft);
 }
 .block {
   margin-top: 16px;

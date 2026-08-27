@@ -32,7 +32,7 @@ const activeMenu = computed(() => {
         >
           <el-menu-item index="/">날씨 대시보드</el-menu-item>
           <el-menu-item index="/about">서비스 소개</el-menu-item>
-          <el-menu-item index="/steps">과제 단계</el-menu-item>
+          <el-menu-item index="/steps">단계별 과제</el-menu-item>
           <el-menu-item index="/practice">실습 모음</el-menu-item>
         </el-menu>
 
