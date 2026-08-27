@@ -245,13 +245,13 @@ src/
 
 **개선된 점**
 
-- `==` 가 섞이면 빌드 전에 걸림 — 규칙을 넣고 `if (userAge == 20)` 을 넣어보니 `eqeqeq` 로 검출됨
-- 모드별로 로드되는 파일이 갈리는 걸 번들에서 직접 확인 — staging 은 `api-stage`, production 은 `api-prod`, **`--mode development` 는 `.env.development` 가 없어 `undefined`**
-- `/about` 을 직접 열거나 새로고침해도 rewrite 덕분에 `index.html` 이 떠서 라우터가 경로를 처리함
+- `==` 가 섞이면 빌드 전에 걸러집니다 — 일부러 `if (userAge == 20)` 을 써 보니 `eqeqeq` 에 잡혔습니다
+- 모드에 따라 어떤 `.env` 파일이 읽히는지 번들에서 직접 확인했습니다 — staging 은 `api-stage`, production 은 `api-prod`, **`--mode development` 는 `.env.development` 가 없어 `undefined`**
+- `/about` 을 직접 열거나 새로고침해도 rewrite 가 `index.html` 을 돌려주고 라우터가 이어받습니다
 
 ## 배포
 
-Vercel 로 배포했습니다. `main` 에 푸시하면 자동으로 다시 빌드됩니다.
+Vercel 에 올렸고, `main` 에 푸시할 때마다 자동으로 다시 배포됩니다.
 
 **https://skala-front-three.vercel.app/**
 
@@ -261,10 +261,13 @@ Vercel 로 배포했습니다. `main` 에 푸시하면 자동으로 다시 빌�
 | Output Directory | `dist`                 |
 | 환경 변수        | `VITE_WEATHER_API_KEY` |
 
-SPA 라 `/about` 같은 주소를 직접 열면 서버에 그런 파일이 없습니다. `vercel.json` 의 rewrite 로 모든 경로를 `index.html` 로 넘겨서 라우터가 처리하게 했습니다. 정적 파일은 rewrite 보다 먼저 매칭되므로 `/assets/**` 는 영향을 받지 않습니다.
+빌드 명령을 따로 지정한 이유가 있습니다. Vercel 이 기본으로 고르는 `npm run build` 는 `--mode development` 라서 `.env.production` 을 읽지 않습니다. 배포본에는 운영 설정이 들어가야 하니 `vercel.json` 에 `build:prod` 를 쓰도록 명시했습니다.
 
-> ⚠️ Vite 는 `VITE_` 변수를 **빌드 시점에 번들 안으로 치환**합니다. 저장소에는 키가 없지만
-> 배포된 JS 파일에는 들어가므로, 채점이 끝나면 OpenWeatherMap 키를 폐기하는 편이 좋습니다.
+라우팅도 한 가지 손볼 게 있었습니다. SPA 라 서버에 실제로 존재하는 HTML 은 `index.html` 하나뿐입니다. 그래서 `/about` 을 주소창에 직접 입력하거나 그 페이지에서 새로고침하면, 서버는 그 경로에 해당하는 파일을 찾지 못하고 404 를 돌려줍니다. `vercel.json` 의 rewrite 로 모든 요청을 `index.html` 로 넘기면 앱이 먼저 뜨고, 그다음 라우터가 주소를 읽어 알맞은 화면을 그립니다. 정적 파일은 rewrite 보다 우선해서 처리되므로 `/assets/**` 는 영향을 받지 않습니다.
+
+> ⚠️ Vite 는 `VITE_` 로 시작하는 변수를 **빌드 시점에 번들 안으로 그대로 써넣습니다.**
+> 저장소에 키가 올라가지는 않지만 배포된 JS 파일을 열면 보입니다.
+> 브라우저에서 도는 앱이라 구조상 피하기 어려워서, 채점이 끝나면 키를 폐기할 예정입니다.
 
 ## 아쉬운 점
 
