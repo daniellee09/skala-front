@@ -4,10 +4,10 @@ import { ref, onMounted, onUpdated, onUnmounted } from 'vue'
 const count = ref(0)
 let timerId = null
 
-// Creation
+// 생성 - 아직 DOM 없음
 console.log('1. [setup] 컴포넌트가 메모리에 생성되었습니다. (DOM 접근 불가능)')
 
-// Mounting
+// 마운트 - 여기서 API 호출이나 DOM 접근
 onMounted(() => {
   console.log('2. [onMounted] 컴포넌트가 화면에 마운트 되었습니다. (API 호출 / DOM 접근 가능)')
 
@@ -16,12 +16,12 @@ onMounted(() => {
   }, 3000)
 })
 
-// Updating
+// 갱신 - 데이터 바뀔 때마다
 onUpdated(() => {
   console.log(`3. [onUpdated] 컴포넌트가 업데이트 되었습니다. (현재 count: ${count.value})`)
 })
 
-// Unmounting
+// 소멸 - 타이머 안 치우면 메모리 샘
 onUnmounted(() => {
   clearInterval(timerId)
   console.log('4. [onUnmounted] 컴포넌트가 화면에서 제거되었습니다. (타이머 제거)')

@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from 'vue'
 
-// 1. 일반 변수 (화면이 실시간으로 바뀌지 않음)
+// 일반 변수 - 값은 바뀌는데 화면은 그대로
 let normalCount = 0
-// 2. 반응성 변수 (화면이 실시간으로 바뀜)
+// ref 로 감싼 반응형 변수 - 바로 화면에 반영됨
 const vueCount = ref(0)
 </script>
 

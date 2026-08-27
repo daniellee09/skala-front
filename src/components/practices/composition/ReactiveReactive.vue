@@ -1,7 +1,7 @@
 <script setup>
 import { reactive } from 'vue'
 
-// reactive()는 객체/배열 전용이며 .value 없이 접근한다
+// reactive 는 객체/배열 전용. .value 안 붙임
 const userReactive = reactive({ name: '이순신', age: 30 })
 const celebrateReactive = () => {
   userReactive.age++
@@ -9,7 +9,7 @@ const celebrateReactive = () => {
 
 const items = reactive(['사과', '바나나'])
 const addItem = () => {
-  // ⚠️ items = [...] 처럼 통째로 재할당하면 반응성이 끊긴다. push/splice 사용
+  // 통째로 재할당하면 반응성 끊김. push/splice 써야 함
   items.push(`과일 ${items.length + 1}`)
 }
 const removeItem = (index) => {

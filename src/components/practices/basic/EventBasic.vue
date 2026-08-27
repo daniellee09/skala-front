@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 const count = ref(0)
 
-// 메서드 핸들러 함수 정의
+// 메서드 핸들러
 const showAlert = () => {
   window.alert('함수가 성공적으로 호출되었습니다!')
 }
@@ -18,7 +18,7 @@ const showAlert = () => {
     <button @click="count++">1씩 증가</button>
 
     <h3>2) 스크립트 함수 호출 (Method Handler)</h3>
-    <!-- 괄호 없이 함수 이름만 넘기면 '호출'이 아니라 '참조'가 등록된다 -->
+    <!-- 괄호 붙이면 바로 실행돼버림. 이름만 넘겨야 함 -->
     <button @click="showAlert">알림창 띄우기</button>
   </div>
 </template>

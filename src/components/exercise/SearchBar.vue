@@ -1,8 +1,8 @@
 <script setup>
-// 1. 상위로 입력 텍스트를 전달할 커스텀 이벤트 등록 (매크로)
+// 부모한테 검색어 올려보낼 이벤트 등록
 defineEmits(['update-query'])
 
-// 2. 상위로부터 현재 검색 상태 값을 수신 (한글 동기화 상태 유지용)
+// 현재 검색어는 부모한테 받아옴 (한글 입력 안 깨지게)
 defineProps({
   currentQuery: {
     type: String,

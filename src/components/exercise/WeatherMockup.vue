@@ -1,18 +1,18 @@
 <script setup>
 import { ref } from 'vue'
 
-// 4일차 API 연동을 대비한 가상의 백엔드 데이터 배열 (v-for 및 :key 실습용)
+// 목업 날씨 데이터. v-for + :key 실습용이고 나중에 실 API 로 교체할 예정
 const weatherList = ref([
   { id: 'city_01', name: '서울', temp: 28, status: '맑음' },
   { id: 'city_02', name: '수원', temp: 24, status: '비' },
   { id: 'city_03', name: '부산', temp: 26, status: '구름' },
 ])
 
-// 검색어 및 알림창 제어용 데이터 (v-model 대용 한글 처리 및 이벤트 실습용)
+// 검색어 + 상태바 문구
 const searchQuery = ref('')
 const selectedCityInfo = ref('카드를 클릭하거나 검색해 보세요.')
 
-// 알림 대행 함수 (window 객체 격리 우회)
+// 상세보기 알림
 const showDetail = (cityName, status) => {
   window.alert(`${cityName}의 현재 날씨는 [${status}] 상태입니다.`)
 }
@@ -22,7 +22,7 @@ const showDetail = (cityName, status) => {
   <div class="dashboard-wrapper">
     <section class="search-box">
       <h3>🔍 도시 검색</h3>
-      <!-- input type="text" v-model="searchQuery" placeholder="검색할 도시 이름 입력" / -->
+      <!-- v-model 대신 :value + @input 으로 직접 처리 (원리 확인용) -->
       <input
         type="text"
         :value="searchQuery"

@@ -1,14 +1,14 @@
 <script setup>
 import { ref } from 'vue'
 
-// ref()는 원시 타입과 참조 타입 모두를 반응형으로 만든다
+// ref 는 원시값이든 객체든 다 반응형으로 만들어줌
 const count = ref(0)
 const name = ref('홍길동')
 const isActive = ref(true)
 const items = ref(['사과', '배'])
 const user = ref({ name: '이순신', age: 30 })
 
-// script 안에서는 .value 로 접근한다
+// script 에선 .value 붙임 (template 에선 생략)
 const increaseRef = () => {
   count.value++
 }

@@ -1,5 +1,5 @@
 <script setup>
-// 자바스크립트 영역은 비워둡니다.
+// 스타일만 보는 예제라 스크립트는 비워둠
 </script>
 
 <template>
@@ -11,7 +11,7 @@
 </template>
 
 <style scoped>
-/* 이 컴포넌트 전용 타이틀 디자인 (다른 컴포넌트에 영향 없음) */
+/* scoped 라 이 컴포넌트 안에서만 먹음 */
 .title {
   color: #ff7675;
   font-weight: bold;
@@ -20,6 +20,6 @@
 </style>
 
 <style>
-/* 외부 스타일 파일을 이 컴포넌트로 가져옵니다 (scoped 아님 = 전역) */
+/* scoped 안 붙였으니 여기서 import 하면 전역으로 퍼짐 */
 @import '@/assets/practice.css';
 </style>

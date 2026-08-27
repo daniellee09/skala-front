@@ -6,12 +6,12 @@ const state = reactive({ productName: '노트북', price: 1000 })
 const logAutoDeep = ref('대기 중...')
 const logTarget = ref('대기 중...')
 
-// 1) reactive 변수명 그대로 감시 → deep이 자동 적용되지만 이전 값을 알 수 없다
+// 변수명 그대로 감시하면 deep 이 자동. 대신 이전 값 못 봄
 watch(state, (newVal, oldVal) => {
   logAutoDeep.value = `[자동 deep] 가격 변동! 이전값인 척하는: ${oldVal.price}원 ➡️ 현재값: ${newVal.price}원`
 })
 
-// 2) 화살표 함수로 특정 속성만 감시 → 이전 값이 정상 보존된다
+// 속성 하나만 집어서 감시하면 이전 값 살아있음
 watch(
   () => state.price,
   (newPrice, oldPrice) => {

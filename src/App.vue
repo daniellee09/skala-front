@@ -17,14 +17,14 @@ import UnitToggler from './components/exercise/UnitToggler.vue'
     </header>
 
     <main class="app-main">
-      <!-- 주소창 변경에 따라 실제 화면이 갈아 끼워지는 구역 -->
+      <!-- 주소 바뀌면 여기 내용만 갈아끼워짐 -->
       <RouterView />
     </main>
   </div>
 </template>
 
 <style>
-/* 프로젝트 공통 스타일 (전역) */
+/* 공통 스타일. scoped 아니라 전역으로 깔림 */
 @import '@/assets/exercise.css';
 @import '@/assets/practice.css';
 </style>
@@ -72,7 +72,7 @@ import UnitToggler from './components/exercise/UnitToggler.vue'
   color: var(--color-text);
 }
 
-/* Vue Router가 활성 링크에 자동 부여하는 클래스 */
+/* 라우터가 현재 페이지 링크에 자동으로 붙여주는 클래스 */
 .nav-item.router-link-exact-active {
   background: var(--color-brand);
   color: #fff;

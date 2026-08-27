@@ -5,8 +5,7 @@ const username = ref('홍길동')
 const age = ref(20)
 const logMessage = ref('대기 중...')
 
-// watchEffect: 감시 대상을 지정하는 파라미터가 없다.
-// 내부에서 접근한 반응형 데이터를 Vue가 자동으로 추적한다.
+// watchEffect 는 감시 대상 안 적어도 됨. 안에서 쓴 값들 알아서 추적함
 watchEffect(() => {
   logMessage.value = `[자동 감지] 이름: ${username.value} / 나이: ${age.value}세`
   console.log('🤖 watchEffect가 내부 변수 변경을 감지하여 실행되었습니다.')

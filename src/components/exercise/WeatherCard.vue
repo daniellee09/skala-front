@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useConfigStore } from '@/stores/configStore.js'
 
-// ⚠️ props 를 script 안에서 쓰려면 반드시 변수에 "받아야" 합니다
+// script 에서 props 쓰려면 변수로 받아야 함
 const props = defineProps({
   cityItem: { type: Object, required: true },
 })
@@ -11,13 +11,13 @@ const emit = defineEmits(['select-card', 'click-detail'])
 
 const configStore = useConfigStore()
 
-// 원본 섭씨 데이터를 현재 단위 설정에 맞게 변환해서 뱉는 파생 값
+// 원본(섭씨)을 현재 단위에 맞춰 변환
 const displayTemp = computed(() => {
-  const rawTemp = props.cityItem.temp // 기본 원본 데이터는 섭씨 숫자
+  const rawTemp = props.cityItem.temp // 원본은 항상 섭씨
   if (configStore.unit === 'fahrenheit') {
-    return Math.round((rawTemp * 9) / 5 + 32) // 화씨 변환 연산
+    return Math.round((rawTemp * 9) / 5 + 32) // 화씨 변환
   }
-  return rawTemp // 'celsius' 일 때는 원본 그대로 반환
+  return rawTemp // 섭씨면 그대로
 })
 </script>
 

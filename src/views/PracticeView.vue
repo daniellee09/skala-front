@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-// [3장] Vue Syntax - 기본 문법 / 디렉티브
+// 3장 - 기본 문법 / 디렉티브
 import SampleOne from '@/components/practices/basic/SampleOne.vue'
 import SampleTwo from '@/components/practices/basic/SampleTwo.vue'
 import VueText from '@/components/practices/basic/VueText.vue'
@@ -19,7 +19,7 @@ import VueCloak from '@/components/practices/basic/VueCloak.vue'
 import VueOnce from '@/components/practices/basic/VueOnce.vue'
 import VueMemo from '@/components/practices/basic/VueMemo.vue'
 
-// [3장] Vue Syntax - 이벤트 / 폼 / 스타일
+// 3장 - 이벤트 / 폼 / 스타일
 import EventBasic from '@/components/practices/basic/EventBasic.vue'
 import EventObject from '@/components/practices/basic/EventObject.vue'
 import EventModifier from '@/components/practices/basic/EventModifier.vue'
@@ -28,7 +28,7 @@ import ModelForm from '@/components/practices/basic/ModelForm.vue'
 import ModelModifier from '@/components/practices/basic/ModelModifier.vue'
 import StyleScoped from '@/components/practices/basic/StyleScoped.vue'
 
-// [4장] Composition API
+// 4장 - Composition API
 import ReactiveRef from '@/components/practices/composition/ReactiveRef.vue'
 import ReactiveReactive from '@/components/practices/composition/ReactiveReactive.vue'
 import ComputedBasic from '@/components/practices/composition/ComputedBasic.vue'
@@ -38,14 +38,14 @@ import WatchersDeep from '@/components/practices/composition/WatchersDeep.vue'
 import WatchersReactive from '@/components/practices/composition/WatchersReactive.vue'
 import WatchersWatchEffect from '@/components/practices/composition/WatchersWatchEffect.vue'
 
-// [5장] Vue Components
+// 5장 - 컴포넌트
 import LifecycleParent from '@/components/practices/component/LifecycleParent.vue'
 import PropsEmitsParent from '@/components/practices/component/PropsEmitsParent.vue'
 import SlotDefaultParent from '@/components/practices/component/SlotDefaultParent.vue'
 import SlotNamedParent from '@/components/practices/component/SlotNamedParent.vue'
 import SlotScopedParent from '@/components/practices/component/SlotScopedParent.vue'
 
-// [7·8장] Pinia / Axios
+// 7·8장 - Pinia / Axios
 import StoreCounter from '@/components/practices/library/StoreCounter.vue'
 import AxiosWeather from '@/components/practices/library/AxiosWeather.vue'
 import AxiosJson from '@/components/practices/library/AxiosJson.vue'
@@ -119,7 +119,7 @@ const activeTab = ref('syntax')
       <WatchersWatchEffect />
     </template>
 
-    <!-- 5장: 컴포넌트 (lifecycle / props·emits / slot) -->
+    <!-- 5장: 컴포넌트 -->
     <template v-else-if="activeTab === 'component'">
       <LifecycleParent />
       <PropsEmitsParent />

@@ -2,14 +2,14 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
-// 백엔드 공용 주소 (무료 가상 REST API)
+// 테스트용 가상 API
 const BASE_URL = 'https://jsonplaceholder.typicode.com/posts'
 
 const items = ref([]) // 서버에서 받아온 데이터 배열
 const textInput = ref('') // 입력창과 연결된 데이터
 const log = ref('버튼을 눌러 CRUD를 테스트해 보세요.')
 
-// [READ] GET : 데이터 가져오기
+// GET - 조회
 const handleRead = async () => {
   try {
     const response = await axios.get(BASE_URL, { params: { _limit: 3 } })
@@ -20,7 +20,7 @@ const handleRead = async () => {
   }
 }
 
-// [CREATE] POST : 데이터 등록하기
+// POST - 등록
 const handleCreate = async () => {
   if (!textInput.value.trim()) {
     log.value = '⚠️ 저장할 텍스트를 입력하세요.'
@@ -32,7 +32,7 @@ const handleCreate = async () => {
       body: '실습으로 등록한 날씨 현황',
       userId: 1,
     })
-    // 가상 API라 서버에 실제 저장되지는 않으므로 화면에서만 앞에 붙인다
+    // 가상 API 라 진짜 저장은 안 됨. 화면에만 붙여줌
     items.value.unshift(response.data)
     log.value = `POST 성공: id ${response.data.id} 생성`
     textInput.value = ''
@@ -41,7 +41,7 @@ const handleCreate = async () => {
   }
 }
 
-// [UPDATE] PUT : 데이터 수정하기
+// PUT - 수정
 const handleUpdate = async (id) => {
   try {
     const response = await axios.put(`${BASE_URL}/${id}`, {
@@ -56,7 +56,7 @@ const handleUpdate = async (id) => {
   }
 }
 
-// [DELETE] DELETE : 데이터 삭제하기
+// DELETE - 삭제
 const handleDelete = async (id) => {
   try {
     await axios.delete(`${BASE_URL}/${id}`)
@@ -67,7 +67,7 @@ const handleDelete = async (id) => {
   }
 }
 
-// 마운트 시점에 초기 목록 조회
+// 처음 들어오면 바로 목록 조회
 onMounted(handleRead)
 </script>
 

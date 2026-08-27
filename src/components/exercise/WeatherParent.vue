@@ -1,6 +1,6 @@
 <script setup>
 import { ref, computed, watch, watchEffect } from 'vue'
-// 1. 컴포넌트 파일명 국룰 표기법(PascalCase) 매칭 수입
+// 컴포넌트는 PascalCase 로 import
 import BaseDashboardCard from './BaseDashboardCard.vue'
 import SearchBar from './SearchBar.vue'
 import WeatherCard from './WeatherCard.vue'
@@ -14,7 +14,7 @@ const weatherList = ref([
 const searchQuery = ref('')
 const selectedCityInfo = ref('카드를 클릭하거나 검색해 보세요.')
 
-// 기존 핵심 비즈니스 로직(computed, watch)의 소유권은 안전하게 부모 콘텍스트가 격리 유지
+// 상태랑 로직은 전부 부모가 들고 있음. 자식은 표시만 함
 const filteredWeatherList = computed(() => {
   const query = searchQuery.value.trim()
   if (!query) return weatherList.value

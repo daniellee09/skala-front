@@ -8,7 +8,7 @@ import SlotScopedChild from './SlotScopedChild.vue'
     <h3>상위 컴포넌트 (Parent)</h3>
     <SlotScopedChild v-slot="slotBag">
       <div class="display-panel">
-        <!-- Scoped Slot Content -->
+        <!-- 자식이 넘겨준 값을 여기서 꺼내 씀 -->
         <p>알림 메시지: {{ slotBag.text }}</p>
         <p>접속자 수: {{ slotBag.count }}명</p>
       </div>

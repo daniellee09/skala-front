@@ -2,11 +2,10 @@
 import { ref } from 'vue'
 import PropsEmitsChild from './PropsEmitsChild.vue'
 
-// 1. 상위 컴포넌트의 로컬 반응형 상태 정의
+// 부모가 들고 있는 상태
 const message = ref('Parent 초기 메시지')
 
-// 2. 하위 컴포넌트의 커스텀 이벤트를 수신했을 때 실행될 핸들러 함수
-// 인자(newValue)로 하위 컴포넌트가 보낸 페이로드가 자동 주입됩니다.
+// 자식이 쏜 이벤트 받는 핸들러. 자식이 보낸 값이 인자로 들어옴
 const handleUpdateRequest = (newValue) => {
   message.value = newValue
 }
@@ -21,7 +20,7 @@ const handleUpdateRequest = (newValue) => {
         현재 로컬 데이터(State): <strong>{{ message }}</strong>
       </p>
       <br />
-      <!-- // @은 on 의 축약 형식으로, 하위 컴포넌트에서 발생한 커스텀 이벤트를 수신함 -->
+      <!-- @는 v-on 축약형. 자식이 쏜 커스텀 이벤트 받음 -->
       <PropsEmitsChild :parent-data="message" @update-request="handleUpdateRequest" />
     </div>
   </div>

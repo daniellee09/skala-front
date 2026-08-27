@@ -5,9 +5,9 @@ const user = ref({ name: '홍길동', age: 20 })
 const logDeep = ref('아직 반응 없음')
 const logTarget = ref('아직 반응 없음')
 
-// ❌ 실패 예시: watch(user, ...) 는 객체 내부 속성 변경을 감지하지 못한다
+// watch(user, ...) 만 쓰면 객체 안쪽 변경은 못 잡음
 
-// 해결책 1: deep 옵션으로 하위 속성 전체 감시 (단, 이전 값 추적 불가)
+// 방법1 - deep 켜서 전체 감시. 근데 이전 값은 못 봄
 watch(
   user,
   (newVal) => {
@@ -16,7 +16,7 @@ watch(
   { deep: true },
 )
 
-// 해결책 2: 화살표 함수로 특정 속성만 감시 (★ 이전 값 추적 가능)
+// 방법2 - 속성 하나만 콕 집어서 감시. 이건 이전 값도 나옴
 watch(
   () => user.value.age,
   (newAge, oldAge) => {

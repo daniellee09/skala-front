@@ -4,12 +4,12 @@ import { ref } from 'vue'
 const position = ref('')
 const tagName = ref('')
 
-// 패턴 1) 함수명만 넘기면 첫 번째 인자로 이벤트 객체가 묵시적으로 주입된다
+// 함수명만 넘기면 이벤트 객체가 첫 인자로 자동으로 들어옴
 const getOnlyEvent = (e) => {
   position.value = `좌표: X=${e.clientX}, Y=${e.clientY}`
 }
 
-// 패턴 2) 인자를 함께 넘길 때는 $event 를 명시적으로 적어야 한다
+// 인자 같이 넘길 땐 $event 를 직접 적어줘야 함
 const getWithParam = (name, e) => {
   tagName.value = `대상: ${name} / 클릭된 태그: ${e.target.tagName}`
 }

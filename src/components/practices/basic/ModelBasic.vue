@@ -2,7 +2,7 @@
 import { ref } from 'vue'
 
 const text1 = ref('') // v-model용 변수
-const text2 = ref('') // 내부 원리 이해용 변수
+const text2 = ref('') // 원리 확인용 (v-model 안 씀)
 </script>
 
 <template>
@@ -16,7 +16,7 @@ const text2 = ref('') // 내부 원리 이해용 변수
     </p>
 
     <h3>2) v-model의 내부 작동 원리 (단방향 + 이벤트)</h3>
-    <!-- v-bind(:value) + v-on(@input) 결합 = v-model -->
+    <!-- :value + @input 합친 게 결국 v-model -->
     <input
       type="text"
       :value="text2"

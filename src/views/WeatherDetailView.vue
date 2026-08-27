@@ -1,5 +1,5 @@
 <script setup>
-// 지역별 상세 기상관측 정보를 보여주는 페이지
+// 도시별 상세 날씨 페이지
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useConfigStore } from '@/stores/configStore.js'
@@ -16,7 +16,7 @@ const airData = ref(null)
 const isLoading = ref(false)
 const errorMessage = ref('')
 
-// displayTemp 는 기존 그대로 — 이미 null 가드가 있어서 손댈 필요 없음
+// cityData 가 처음엔 null 이라 가드 필수
 const displayTemp = computed(() => {
   if (!cityData.value) return null
   const rawTemp = cityData.value.temp
@@ -30,7 +30,7 @@ onMounted(async () => {
     const weather = await fetchWeatherByCity(route.params.cityId)
     cityData.value = weather
 
-    // 대기오염과 예보는 서로 독립 → 병렬로 동시 발사
+    // 둘은 서로 상관없으니 동시에 요청
     const [air, fc] = await Promise.all([
       fetchAirPollution(weather.lat, weather.lon),
       fetchForecast(weather.lat, weather.lon),

@@ -1,10 +1,10 @@
 <script setup>
 import { ref } from 'vue'
 
-// 1. 조건부 온/오프 스위치 변수
+// 조건부 렌더링용 스위치
 const isLogged = ref(false)
 
-// 2. 다중 조건 분기용 숫자 변수
+// v-else-if 다중 분기용 점수
 const score = ref(85)
 </script>
 

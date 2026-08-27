@@ -4,7 +4,7 @@ import { ref, watch } from 'vue'
 const currentCity = ref('서울')
 const logMessage = ref('아직 감시 시스템이 작동하지 않았습니다.')
 
-// currentCity를 감시하여 변경 시 후속 로직 실행
+// currentCity 바뀌면 실행
 watch(currentCity, (newValue, oldValue) => {
   logMessage.value = `📍 감시자 발동! [${oldValue}]에서 [${newValue}]로 변경됨.`
   console.log(`🤖 [서버 요청] 기상청에서 ${newValue}의 날씨 API를 다시 조회합니다...`)

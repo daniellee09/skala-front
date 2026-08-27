@@ -3,7 +3,7 @@ import WeatherHomeView from '../views/WeatherHomeView.vue'
 
 const routes = [
   {
-    // 최종 결과물: 실시간 날씨 대시보드
+    // 메인 - 실시간 날씨 대시보드
     path: '/',
     name: 'WeatherHome',
     component: WeatherHomeView,
@@ -11,11 +11,11 @@ const routes = [
   {
     path: '/about',
     name: 'WeatherAbout',
-    // 지연 로딩(Lazy Loading): 해당 경로 진입 시점에 다운로드
+    // 지연 로딩 - 이 페이지 들어갈 때 받아옴
     component: () => import('../views/WeatherAboutView.vue'),
   },
   {
-    // 동적 경로 매칭: /weather/seoul
+    // 동적 경로 - /weather/seoul 형태
     path: '/weather/:cityId',
     name: 'WeatherDetail',
     component: () => import('../views/WeatherDetailView.vue'),
@@ -33,7 +33,7 @@ const routes = [
     component: () => import('../views/PracticeView.vue'),
   },
   {
-    // Catch-all Route: 반드시 목록 마지막에 배치
+    // 나머지 전부 404. 반드시 맨 아래 있어야 함
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
     component: () => import('../views/NotFoundView.vue'),

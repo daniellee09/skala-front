@@ -8,8 +8,8 @@ const weatherApi = axios.create({
   timeout: 5000,
   params: {
     appid: API_KEY,
-    units: 'metric', // ★ 켈빈 → 섭씨
-    lang: 'kr', // ★ 날씨 설명 한글화
+    units: 'metric', // 켈빈 → 섭씨
+    lang: 'kr', // 날씨 설명 한글로
   },
 })
 
@@ -65,7 +65,7 @@ export const fetchAirPollution = async (lat, lon) => {
   }
 }
 
-// ── 외부 API #2: Open-Meteo (API 키 불필요)
+// 외부 API 2번 - Open-Meteo (키 필요 없음)
 const meteoApi = axios.create({
   baseURL: 'https://api.open-meteo.com/v1',
   timeout: 5000,

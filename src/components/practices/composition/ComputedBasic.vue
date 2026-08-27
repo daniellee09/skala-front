@@ -4,13 +4,13 @@ import { ref, computed } from 'vue'
 const count = ref(0)
 const dummy = ref(0) // computed와 무관한 변수
 
-// 1. 일반 함수: 리렌더링될 때마다 무조건 재실행
+// 일반 함수 - 리렌더링될 때마다 무조건 다시 실행됨
 const getMethodResult = () => {
   console.log('❌ 일반 함수 실행됨!')
   return count.value * 2
 }
 
-// 2. Computed: count가 바뀔 때만 재연산 (dummy가 바뀔 땐 캐시 재사용)
+// computed - count 바뀔 때만 재계산. dummy 바뀌면 캐시 씀
 const doubleCount = computed(() => {
   console.log('✅ Computed 연산 실행됨!')
   return count.value * 2

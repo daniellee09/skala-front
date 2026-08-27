@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 
-// 하위 컴포넌트 내부에서 관리하는 2개의 서로 다른 기본형 데이터
+// 자식이 들고 있는 데이터. 이걸 슬롯으로 부모한테 넘김
 const message = ref('현재 서버 상태 정상')
 const userCount = ref(150)
 </script>
