@@ -1,0 +1,71 @@
+/* 실습 컴포넌트 공통 스타일 */
+.practice-section {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  background: #fff;
+}
+
+.practice-section h2 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 4px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #42b883;
+}
+
+.practice-section h3 {
+  font-size: 14px;
+  font-weight: bold;
+  margin: 12px 0 6px;
+  color: #2c3e50;
+}
+
+.practice-section button {
+  padding: 6px 12px;
+  margin-right: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #f8f9fa;
+  cursor: pointer;
+}
+
+.practice-section input,
+.practice-section select,
+.practice-section textarea {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* watch 계열 모니터 패널 */
+.monitor {
+  background: #e3fafc;
+  border: 1px solid #99e9f2;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.monitor.target {
+  background: #f3f0ff;
+  border-color: #d0bfff;
+}
+
+.monitor.auto {
+  background: #fff5f5;
+  border-color: #ffc9c9;
+}
+
+/* 외부 CSS import 실습용 버튼 */
+.btn-external {
+  padding: 8px 14px;
+  background-color: #2ecc71;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
