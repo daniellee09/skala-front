@@ -52,12 +52,17 @@ import StoreCounter from '@/components/practices/library/StoreCounter.vue'
 import AxiosWeather from '@/components/practices/library/AxiosWeather.vue'
 import AxiosJson from '@/components/practices/library/AxiosJson.vue'
 
+// 9장 - UI Library / Modern JavaScript
+import ElementPlusDemo from '@/components/practices/library/ElementPlus.vue'
+import EcmaScript from '@/components/practices/library/EcmaScript.vue'
+
 const tabs = [
   { id: 'syntax', label: '3장 · Vue Syntax' },
   { id: 'event', label: '3장 · 이벤트/폼/스타일' },
   { id: 'composition', label: '4장 · Composition API' },
   { id: 'component', label: '5장 · Components' },
   { id: 'library', label: '7·8장 · Pinia/Axios' },
+  { id: 'ui', label: '9장 · Element Plus/ES6+' },
 ]
 
 const activeTab = ref('syntax')
@@ -133,10 +138,16 @@ const activeTab = ref('syntax')
     </template>
 
     <!-- 7·8장: Pinia / Axios -->
-    <template v-else>
+    <template v-else-if="activeTab === 'library'">
       <StoreCounter />
       <AxiosWeather />
       <AxiosJson />
+    </template>
+
+    <!-- 9장: Element Plus / Modern JavaScript -->
+    <template v-else>
+      <ElementPlusDemo />
+      <EcmaScript />
     </template>
   </div>
 </template>
