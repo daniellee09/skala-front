@@ -1,6 +1,6 @@
 <script setup>
 // 도시별 상세 날씨 페이지
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useConfigStore } from '@/stores/configStore.js'
 import { fetchWeatherByCity, fetchAirPollution, fetchForecast } from '@/services/weatherApi.js'
@@ -30,10 +30,16 @@ const aqiTagType = computed(() => {
   return map[airData.value?.aqi] ?? 'info'
 })
 
-onMounted(async () => {
+const loadDetail = async (cityId) => {
   isLoading.value = true
+  // 이전 도시 데이터가 잠깐 남아 보이지 않게 비우고 시작
+  errorMessage.value = ''
+  cityData.value = null
+  airData.value = null
+  forecast.value = []
+
   try {
-    const weather = await fetchWeatherByCity(route.params.cityId)
+    const weather = await fetchWeatherByCity(cityId)
     cityData.value = weather
 
     // 둘은 서로 상관없으니 동시에 요청
@@ -48,7 +54,11 @@ onMounted(async () => {
   } finally {
     isLoading.value = false
   }
-})
+}
+
+// 같은 라우트에서 cityId 만 바뀌면 컴포넌트가 재사용돼 onMounted 가 다시 안 돈다.
+// route 를 감시하면 최초 진입(immediate)과 도시 변경을 한 곳에서 처리할 수 있음
+watch(() => route.params.cityId, loadDetail, { immediate: true })
 </script>
 
 <template>

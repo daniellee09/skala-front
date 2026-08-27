@@ -102,7 +102,7 @@ const handleDetailJump = (id) => {
           :key="item.id"
           :city-item="item"
           @select-card="(msg) => (selectedCityInfo = msg)"
-          @click-detail="handleDetailJump(item.id)"
+          @click-detail="handleDetailJump"
         />
 
         <el-empty v-if="filteredWeatherList.length === 0" description="검색 결과가 없습니다." />

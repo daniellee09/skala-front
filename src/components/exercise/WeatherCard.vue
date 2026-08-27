@@ -59,7 +59,7 @@ const isHot = computed(() => props.cityItem.temp >= 25)
         <el-button
           size="small"
           plain
-          @click.stop="emit('click-detail', cityItem.name, cityItem.status)"
+          @click.stop="emit('click-detail', cityItem.id, cityItem.name, cityItem.status)"
         >
           상세보기
         </el-button>

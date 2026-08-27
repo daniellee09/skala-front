@@ -31,7 +31,7 @@ watchEffect(() => {
   )
 })
 
-const showDetail = (cityName, status) => {
+const showDetail = (cityId, cityName, status) => {
   window.alert(`${cityName}의 현재 날씨는 [${status}] 상태입니다.`)
 }
 </script>
