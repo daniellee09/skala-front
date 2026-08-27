@@ -234,28 +234,30 @@ src/
 
 - ESLint 커스텀 규칙 — `eqeqeq: ['error', 'always']`, `no-console: 'off'`
 - `.env.staging` / `.env.production` 과 `build:staging` · `build:prod` 스크립트
-- GitHub Actions 워크플로 — `npm ci` → lint → build → Pages 배포
-- SPA 새로고침 대비 `404.html` 폴백 생성 단계
+- `vercel.json` — 빌드 명령, 산출물 경로, SPA rewrite 규칙
 
 **변경**
 
-- `vite.config.js` 를 함수형으로 바꿔 **빌드일 때만** `base` 를 `/skala-front/` 로 지정
 - `createWebHistory()` → `createWebHistory(import.meta.env.BASE_URL)`
+- 배포 빌드는 `npm run build` 대신 `build:prod` 사용 (`--mode development` 로는 `.env.production` 이 안 잡힘)
 
 **개선된 점**
 
 - `==` 가 섞이면 빌드 전에 걸림 — 규칙을 넣고 `if (userAge == 20)` 을 넣어보니 `eqeqeq` 로 검출됨
 - 모드별로 로드되는 파일이 갈리는 걸 번들에서 직접 확인 — staging 은 `api-stage`, production 은 `api-prod`, **`--mode development` 는 `.env.development` 가 없어 `undefined`**
-- 로컬 dev 는 `/`, 배포는 `/skala-front/` 로 갈라서 **양쪽 다 경로가 깨지지 않음**
-- `/about` 을 직접 열거나 새로고침해도 404 폴백 덕분에 앱이 뜸
+- `/about` 을 직접 열거나 새로고침해도 rewrite 덕분에 `index.html` 이 떠서 라우터가 경로를 처리함
 
 ## 배포
 
-GitHub Actions 로 `main` 에 푸시될 때마다 자동 배포됩니다.
+Vercel 로 배포했습니다. `main` 에 푸시하면 자동으로 다시 빌드됩니다.
 
-```
-https://daniellee09.github.io/skala-front/
-```
+| 항목             | 값                     |
+| ---------------- | ---------------------- |
+| Build Command    | `npm run build:prod`   |
+| Output Directory | `dist`                 |
+| 환경 변수        | `VITE_WEATHER_API_KEY` |
+
+SPA 라 `/about` 같은 주소를 직접 열면 서버에 그런 파일이 없습니다. `vercel.json` 의 rewrite 로 모든 경로를 `index.html` 로 넘겨서 라우터가 처리하게 했습니다. 정적 파일은 rewrite 보다 먼저 매칭되므로 `/assets/**` 는 영향을 받지 않습니다.
 
 > ⚠️ Vite 는 `VITE_` 변수를 **빌드 시점에 번들 안으로 치환**합니다. 저장소에는 키가 없지만
 > 배포된 JS 파일에는 들어가므로, 채점이 끝나면 OpenWeatherMap 키를 폐기하는 편이 좋습니다.
