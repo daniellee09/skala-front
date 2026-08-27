@@ -19,90 +19,101 @@ const displayTemp = computed(() => {
   }
   return rawTemp // 섭씨면 그대로
 })
+
+// 뱃지 판정은 변환 전 섭씨 기준이라 화씨로 바꿔도 결과가 안 흔들림
+const isHot = computed(() => props.cityItem.temp >= 25)
 </script>
 
 <template>
-  <div class="weather-card" @click="emit('select-card', `${cityItem.name}이 선택되었습니다.`)">
-    <h4>{{ cityItem.name }} ({{ cityItem.status }})</h4>
-    <p>현재 기온: {{ displayTemp }}{{ configStore.unitSymbol }}</p>
+  <el-card
+    class="weather-card"
+    shadow="hover"
+    @click="emit('select-card', `${cityItem.name}이 선택되었습니다.`)"
+  >
+    <div class="card-row">
+      <el-image
+        v-if="cityItem.icon"
+        :src="`https://openweathermap.org/img/wn/${cityItem.icon}@2x.png`"
+        :alt="cityItem.status"
+        class="weather-icon"
+        fit="contain"
+      />
 
-    <span v-if="cityItem.temp >= 25" class="badge hot">🔥 더움</span>
-    <span v-else class="badge cool">❄️ 선선함</span>
-    <img
-      v-if="cityItem.icon"
-      :src="`https://openweathermap.org/img/wn/${cityItem.icon}@2x.png`"
-      :alt="cityItem.status"
-      width="50"
-    />
+      <div class="card-body">
+        <div class="card-title">
+          <el-text tag="b" size="large">{{ cityItem.name }}</el-text>
+          <el-tag type="info" size="small" effect="plain">{{ cityItem.status }}</el-tag>
+        </div>
 
-    <button class="btn-detail" @click.stop="emit('click-detail', cityItem.name, cityItem.status)">
-      상세보기
-    </button>
-  </div>
+        <el-text class="card-temp">
+          현재 기온 <b>{{ displayTemp }}{{ configStore.unitSymbol }}</b>
+        </el-text>
+      </div>
+
+      <div class="card-actions">
+        <el-tag :type="isHot ? 'danger' : 'primary'" effect="dark" round>
+          {{ isHot ? '🔥 더움' : '❄️ 선선함' }}
+        </el-tag>
+
+        <!-- .stop 안 걸면 카드 클릭까지 같이 발동함 -->
+        <el-button
+          size="small"
+          plain
+          @click.stop="emit('click-detail', cityItem.name, cityItem.status)"
+        >
+          상세보기
+        </el-button>
+      </div>
+    </div>
+  </el-card>
 </template>
 
 <style scoped>
 .weather-card {
-  background: var(--color-surface);
-  border: 1px solid var(--color-border-strong);
-  padding: 14px 16px;
   margin-bottom: 10px;
-  border-radius: var(--radius-sm);
   cursor: pointer;
-  position: relative;
-  transition:
-    border-color 0.15s ease,
-    box-shadow 0.15s ease,
-    transform 0.15s ease;
-}
-.weather-card:hover {
-  border-color: var(--color-brand);
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-1px);
-}
-.weather-card h4 {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--color-heading);
-  margin-bottom: 4px;
-}
-.weather-card p {
-  font-size: 14px;
-  margin-bottom: 8px;
-}
-.badge {
-  display: inline-block;
-  padding: 3px 9px;
-  font-size: 12px;
-  font-weight: 700;
-  border-radius: 999px;
-  color: #fff;
-  vertical-align: middle;
-}
-.hot {
-  background-color: var(--color-hot);
-}
-.cool {
-  background-color: var(--color-cool);
-}
-.btn-detail {
-  position: absolute;
-  right: 14px;
-  top: 14px;
-  padding: 6px 12px;
-  font-size: 13px;
-  border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-sm);
-  background: var(--color-surface-soft);
-  color: var(--color-text);
-  cursor: pointer;
-  transition:
-    background 0.15s ease,
-    border-color 0.15s ease;
 }
-.btn-detail:hover {
-  background: var(--color-brand);
-  border-color: var(--color-brand);
-  color: #fff;
+.card-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.weather-icon {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+}
+.card-body {
+  flex: 1;
+  min-width: 0;
+}
+.card-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+.card-temp {
+  display: block;
+  color: var(--color-text-soft);
+}
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  .card-row {
+    flex-wrap: wrap;
+  }
+  .card-actions {
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+  }
 }
 </style>

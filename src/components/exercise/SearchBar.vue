@@ -14,14 +14,36 @@ defineProps({
 <template>
   <div class="search-inner">
     <h3>🔍 도시 검색</h3>
-    <input
-      type="text"
-      :value="currentQuery"
-      @input="$emit('update-query', $event.target.value)"
+
+    <!-- el-input 은 v-model 대신 :model-value + @input 으로도 쓸 수 있음.
+         값의 주인은 여전히 부모라서 이 형태를 유지함 -->
+    <el-input
+      :model-value="currentQuery"
       placeholder="검색할 도시 이름 입력"
+      clearable
+      size="large"
+      @input="(val) => $emit('update-query', val)"
+      @clear="$emit('update-query', '')"
     />
-    <p>
-      검색 중인 도시: <strong>{{ currentQuery }}</strong>
+
+    <p class="search-status">
+      검색 중인 도시:
+      <el-text v-if="currentQuery" type="primary" tag="strong">{{ currentQuery }}</el-text>
+      <el-text v-else type="info">전체</el-text>
     </p>
   </div>
 </template>
+
+<style scoped>
+.search-inner h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin-bottom: 10px;
+}
+.search-status {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--color-text-soft);
+}
+</style>

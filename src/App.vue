@@ -1,26 +1,47 @@
 <script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
 import UnitToggler from './components/exercise/UnitToggler.vue'
+
+const route = useRoute()
+
+// el-menu 는 index 값으로 현재 항목을 판단해서, 주소를 그대로 넘겨줌
+// /weather/seoul 처럼 하위 경로일 때도 대시보드 탭이 켜져 있어야 해서 앞부분만 잘라 씀
+const activeMenu = computed(() => {
+  if (route.path.startsWith('/weather')) return '/'
+  return route.path
+})
 </script>
 
 <template>
-  <div class="app-shell">
-    <header class="app-header">
+  <el-container class="app-shell" direction="vertical">
+    <el-header class="app-header" height="auto">
       <h1 class="app-title">⛅ SKALA Weather</h1>
 
-      <nav class="navigation-bar">
-        <RouterLink to="/" class="nav-item">날씨 대시보드</RouterLink>
-        <RouterLink to="/about" class="nav-item">서비스 소개</RouterLink>
-        <RouterLink to="/steps" class="nav-item">과제 단계</RouterLink>
-        <RouterLink to="/practice" class="nav-item">실습 모음</RouterLink>
-        <UnitToggler />
-      </nav>
-    </header>
+      <div class="nav-row">
+        <!-- router 속성을 켜면 index 가 곧 이동할 주소가 됨 -->
+        <el-menu
+          :default-active="activeMenu"
+          mode="horizontal"
+          router
+          :ellipsis="false"
+          class="nav-menu"
+        >
+          <el-menu-item index="/">날씨 대시보드</el-menu-item>
+          <el-menu-item index="/about">서비스 소개</el-menu-item>
+          <el-menu-item index="/steps">과제 단계</el-menu-item>
+          <el-menu-item index="/practice">실습 모음</el-menu-item>
+        </el-menu>
 
-    <main class="app-main">
+        <UnitToggler />
+      </div>
+    </el-header>
+
+    <el-main class="app-main">
       <!-- 주소 바뀌면 여기 내용만 갈아끼워짐 -->
       <RouterView />
-    </main>
-  </div>
+    </el-main>
+  </el-container>
 </template>
 
 <style>
@@ -30,8 +51,13 @@ import UnitToggler from './components/exercise/UnitToggler.vue'
 </style>
 
 <style scoped>
+.app-shell {
+  padding: 0;
+}
+
 .app-header {
-  margin-bottom: 24px;
+  padding: 0;
+  margin-bottom: 20px;
 }
 
 .app-title {
@@ -39,56 +65,37 @@ import UnitToggler from './components/exercise/UnitToggler.vue'
   font-weight: 800;
   color: var(--color-heading);
   letter-spacing: -0.01em;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
-.navigation-bar {
+.nav-row {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 4px;
-  padding: 6px;
+  gap: 10px;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: 999px;
+  border-radius: var(--radius);
+  padding: 0 12px 0 4px;
   box-shadow: var(--shadow-sm);
 }
 
-.nav-item {
-  padding: 7px 15px;
-  border-radius: 999px;
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--color-text-soft);
-  text-decoration: none;
-  white-space: nowrap;
-  transition:
-    background 0.15s ease,
-    color 0.15s ease;
-}
-
-.nav-item:hover {
-  background: var(--color-surface-mute);
-  color: var(--color-text);
-}
-
-/* 라우터가 현재 페이지 링크에 자동으로 붙여주는 클래스 */
-.nav-item.router-link-exact-active {
-  background: var(--color-brand);
-  color: #fff;
+/* el-menu 가 기본으로 깔고 오는 테두리와 배경을 카드 안에 맞춰 정리 */
+.nav-menu {
+  flex: 1;
+  min-width: 260px;
+  border-bottom: none;
+  background: transparent;
 }
 
 .app-main {
+  padding: 0;
   min-height: 60vh;
 }
 
 @media (max-width: 640px) {
-  .navigation-bar {
-    border-radius: var(--radius);
-  }
-  .nav-item {
-    padding: 6px 11px;
-    font-size: 13px;
+  .nav-row {
+    padding: 0 8px;
   }
 }
 </style>

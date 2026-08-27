@@ -21,7 +21,7 @@ SK AX Full-Stack Engineering 과정의 Vue.js 실습 프로젝트입니다.
 | Vue Router        | 5.2.0          | 페이지 라우팅, 동적 경로, 404 처리   |
 | Pinia             | 3.0.4          | 온도 단위 전역 상태 관리             |
 | Axios             | 1.20.0         | OpenWeatherMap / Open-Meteo API 통신 |
-| Element Plus      | 2.14.5         | UI 컴포넌트 라이브러리 실습          |
+| Element Plus      | 2.14.5         | 날씨 앱 전반의 UI 컴포넌트           |
 | Vite              | 8.2.2          | 개발 서버 및 번들링                  |
 | ESLint · Prettier | 10.9.0 · 3.8.3 | 정적 검사와 코드 포맷                |
 
@@ -206,18 +206,25 @@ src/
 **추가**
 
 - `main.js` 에서 Element Plus 전역 등록 (`app.use` + 스타일시트 import)
-- `el-input` · `el-switch` · `el-input-number` · `el-rate` 로 폼 실습
-- `ElMessage` · `ElMessageBox` · `el-progress` 로 피드백 UI 실습
+- 네비게이션을 `el-menu` 의 `router` 모드로 교체 — `index` 가 곧 이동할 주소
+- 로딩은 `el-skeleton`, 에러는 `el-alert`, 빈 결과는 `el-empty` 로 분리
+- 상세 페이지에 `el-descriptions` · `el-table` · `el-page-header` 적용
+- 404 페이지를 `el-result` 로 교체
 - ES6+ 문법 점검용 `EcmaScript` 컴포넌트 (구조분해, 스프레드, 옵셔널 체이닝, async/await)
 
 **변경**
 
-- 직접 만들던 알림·확인창 → 라이브러리 제공 컴포넌트로 대체
+- 직접 그리던 카드·버튼·뱃지 → `el-card` · `el-button` · `el-tag`
+- 온도 단위 토글 버튼 → `el-segmented` (스토어에 토글 액션만 있어서 computed 의 setter 로 연결)
+- 검색창의 `<input>` → `el-input` (`clearable` 로 지우기 버튼 확보)
+- 서비스 소개 페이지를 `el-timeline` 기반 과제 진행 이력으로 재작성
 
 **개선된 점**
 
-- 폼 유효성 안내가 `alert` 대신 화면 흐름을 끊지 않는 토스트로 바뀜
+- `--el-color-primary` 를 브랜드 컬러로 덮어써서 **라이브러리를 써도 기존 색 정체성이 유지됨**
+- 로딩 중 빈 화면 대신 회색 골격이 떠서 화면이 덜컹거리지 않음
 - `stock` 이 `0` 일 때 `||` 를 쓰면 기본값으로 덮인다는 걸 확인하고 **`??` 로 처리** → 0 이 유효한 값으로 살아남음
+- `/steps` 의 과제 1·2 결과물은 그대로 둬서 **적용 전후를 나란히 비교**할 수 있음
 
 ## 아쉬운 점
 

@@ -30,6 +30,17 @@
   --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.07);
   --radius: 10px;
   --radius-sm: 6px;
+
+  /* Element Plus 기본 파랑 대신 우리 브랜드 컬러를 쓰게 연결 */
+  --el-color-primary: #42b883;
+  --el-color-primary-dark-2: #35906a;
+  --el-color-primary-light-3: #7bcfa8;
+  --el-color-primary-light-5: #a1dcc1;
+  --el-color-primary-light-7: #c6e9da;
+  --el-color-primary-light-8: #d9f1e7;
+  --el-color-primary-light-9: #ecf8f3;
+  --el-border-radius-base: 6px;
+  --el-font-family: inherit;
 }
 
 *,

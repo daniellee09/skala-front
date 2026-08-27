@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { ElMessage } from 'element-plus'
 import { fetchAllWeather } from '@/services/weatherApi.js'
 
 import BaseDashboardCard from '../components/exercise/BaseDashboardCard.vue'
@@ -37,6 +38,13 @@ const loadWeather = async () => {
   }
 }
 
+// 새로고침 버튼은 결과를 토스트로 알려줌
+const handleRefresh = async () => {
+  await loadWeather()
+  if (errorMessage.value) ElMessage.error(errorMessage.value)
+  else ElMessage.success('최신 날씨로 갱신했습니다.')
+}
+
 // 초기 마운트 시 주소창의 쿼리 스트링 읽어서 상태 복원
 onMounted(() => {
   if (route.query.search) searchQuery.value = route.query.search
@@ -50,6 +58,7 @@ watch(searchQuery, (newQuery) => {
     query: { search: newQuery || undefined }, // 빈 문자열이면 쿼리 제거
   })
 })
+
 const filteredWeatherList = computed(() => {
   const query = searchQuery.value.trim()
   if (!query) return weatherList.value
@@ -69,10 +78,23 @@ const handleDetailJump = (id) => {
     </BaseDashboardCard>
 
     <BaseDashboardCard>
-      <h3>🏙️ 지역별 날씨 현황</h3>
+      <div class="section-head">
+        <h3>🏙️ 지역별 날씨 현황</h3>
+        <el-button type="primary" plain :loading="isLoading" @click="handleRefresh">
+          새로고침
+        </el-button>
+      </div>
 
-      <p v-if="isLoading">⏳ 실시간 날씨 정보를 불러오는 중...</p>
-      <p v-else-if="errorMessage" class="error-box">⚠️ {{ errorMessage }}</p>
+      <!-- 로딩 중엔 회색 유령 레이아웃을 깔아서 화면이 덜컹거리지 않게 함 -->
+      <el-skeleton v-if="isLoading" :rows="4" animated />
+
+      <el-alert
+        v-else-if="errorMessage"
+        :title="errorMessage"
+        type="error"
+        show-icon
+        :closable="false"
+      />
 
       <template v-else>
         <WeatherCard
@@ -82,31 +104,26 @@ const handleDetailJump = (id) => {
           @select-card="(msg) => (selectedCityInfo = msg)"
           @click-detail="handleDetailJump(item.id)"
         />
-        <p v-if="filteredWeatherList.length === 0">😭 검색 결과가 없습니다.</p>
-      </template>
 
-      <button @click="loadWeather" :disabled="isLoading">🔄 새로고침</button>
+        <el-empty v-if="filteredWeatherList.length === 0" description="검색 결과가 없습니다." />
+      </template>
     </BaseDashboardCard>
 
-    <div class="status-bar">{{ selectedCityInfo }}</div>
+    <el-alert :title="selectedCityInfo" type="success" :closable="false" show-icon />
   </div>
 </template>
 
 <style scoped>
-.status-bar {
-  background: #e8f5e9;
-  padding: 11px;
-  text-align: center;
-  color: #2e7d32;
-  font-weight: 700;
-  font-size: 14px;
-  border-radius: var(--radius-sm);
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
 }
-.error-box {
-  background: #fdecea;
-  color: var(--color-danger);
-  padding: 11px 13px;
-  border-radius: var(--radius-sm);
-  font-size: 14px;
+.section-head h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-heading);
 }
 </style>
