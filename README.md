@@ -4,7 +4,24 @@ SK AX Full-Stack Engineering 과정의 Vue.js 실습 프로젝트입니다.
 
 날씨 대시보드 하나를 계속 고쳐 나가는 방식으로 진행했습니다. 처음엔 배열을 하드코딩한 목업이었고, 여기에 computed와 watch를 붙이고, 컴포넌트로 쪼개고, 라우터와 Pinia를 얹고, 마지막에 OpenWeatherMap 실 API로 갈아끼웠습니다. **단계별 결과물은 지우지 않고 남겨뒀기 때문에** 과제 단계 메뉴에서 순서대로 비교해볼 수 있습니다.
 
-Vue 3(Composition API), Vue Router 5, Pinia 3, Axios로 만들었고 빌드는 Vite를 씁니다.
+## 사용 스택
+
+![Vue.js](https://img.shields.io/badge/Vue.js_3.5-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)
+![Vue Router](https://img.shields.io/badge/Vue_Router_5.2-42B883?style=for-the-badge&logo=vuedotjs&logoColor=white)
+![Pinia](https://img.shields.io/badge/Pinia_3.0-FFD859?style=for-the-badge&logo=pinia&logoColor=black)
+![Axios](https://img.shields.io/badge/Axios_1.20-5A29E4?style=for-the-badge&logo=axios&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite_8.2-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white)
+![Prettier](https://img.shields.io/badge/Prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black)
+
+| 기술 | 버전 | 프로젝트에서 맡은 역할 |
+|---|---|---|
+| Vue 3 | 3.5.41 | Composition API 기반 UI 구성 |
+| Vue Router | 5.2.0 | 페이지 라우팅, 동적 경로, 404 처리 |
+| Pinia | 3.0.4 | 온도 단위 전역 상태 관리 |
+| Axios | 1.20.0 | OpenWeatherMap / Open-Meteo API 통신 |
+| Vite | 8.2.2 | 개발 서버 및 번들링 |
+| ESLint · Prettier | 10.9.0 · 3.8.3 | 정적 검사와 코드 포맷 |
 
 ## 실행 방법
 
@@ -13,12 +30,12 @@ npm install
 npm run dev
 ```
 
-| 명령어 | 하는 일 |
-|---|---|
-| `npm run dev` | 개발 서버 실행 |
-| `npm run build` | 배포용 정적 파일 생성 |
-| `npm run lint` | Oxlint + ESLint 검사 |
-| `npm run format` | Prettier 정렬 |
+| 명령어           | 하는 일               |
+| ---------------- | --------------------- |
+| `npm run dev`    | 개발 서버 실행        |
+| `npm run build`  | 배포용 정적 파일 생성 |
+| `npm run lint`   | Oxlint + ESLint 검사  |
+| `npm run format` | Prettier 정렬         |
 
 ## 🔑 API 키 설정
 
@@ -36,13 +53,13 @@ VITE_WEATHER_API_KEY=여기에_키
 
 ## 화면 구성
 
-| 경로 | 내용 |
-|---|---|
-| `/` | 메인 대시보드. 도시를 검색하고 카드 목록을 봅니다 |
-| `/weather/:cityId` | 도시 상세. 현재 날씨 + 미세먼지 + 5일 예보 |
-| `/about` | 서비스 소개 |
-| `/steps` | 과제 1~3 단계별 결과물 |
-| `/practice` | Code Challenge 실습 모음. 챕터별 탭으로 나눠뒀습니다 |
+| 경로               | 내용                                                 |
+| ------------------ | ---------------------------------------------------- |
+| `/`                | 메인 대시보드. 도시를 검색하고 카드 목록을 봅니다    |
+| `/weather/:cityId` | 도시 상세. 현재 날씨 + 미세먼지 + 5일 예보           |
+| `/about`           | 서비스 소개                                          |
+| `/steps`           | 과제 1~3 단계별 결과물                               |
+| `/practice`        | Code Challenge 실습 모음. 챕터별 탭으로 나눠뒀습니다 |
 
 정의되지 않은 주소로 들어가면 404 페이지가 뜹니다.
 
@@ -123,13 +140,6 @@ src/
 요구사항 2번으로 OpenWeatherMap의 대기오염 API를 붙여 미세먼지를 표시했고, 3번으로는 Open-Meteo를 연동해 5일 예보를 넣었습니다. Open-Meteo는 서버가 다르니 axios 인스턴스를 따로 만들었습니다. 응답이 날짜 배열, 최고기온 배열, 최저기온 배열이 따로 오는 형태라서 인덱스로 짝지어 객체 배열로 바꿔야 했습니다.
 
 호출 순서도 신경 썼습니다. **대기오염과 예보는 서로 상관없으니 `Promise.all`로 동시에** 보내고, 좌표가 필요한 요청은 날씨 응답을 받은 다음에 순차로 보냅니다.
-
-## 😵 삽질 기록
-
-- **켈빈** — `units=metric`을 안 넣으면 온도가 301처럼 나옵니다. 켈빈이 기본값이라는 걸 몰라서 한참 헤맸습니다.
-- **스토어 구조분해** — `const { unit } = useConfigStore()` 로 꺼냈더니 버튼을 눌러도 화면이 안 바뀌었습니다. 구조분해하는 순간 반응형 상자에서 값만 복사돼 나와서 연결이 끊깁니다. `configStore.unit` 처럼 점 표기법으로 접근해야 합니다.
-- **`defineProps` 반환값** — 템플릿에서만 쓸 땐 그냥 `defineProps({...})` 해도 되는데, script 안에서 쓰려면 `const props = defineProps({...})` 처럼 변수로 받아야 합니다.
-- **null 가드** — `cityData`가 `ref(null)`로 시작하는데 computed 안에서 바로 `.temp`를 읽었다가 터졌습니다. 템플릿의 `v-if`와 computed는 별개로 평가됩니다.
 
 ## 아쉬운 점
 
