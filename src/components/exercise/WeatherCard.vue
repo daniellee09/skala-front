@@ -43,32 +43,66 @@ const displayTemp = computed(() => {
 
 <style scoped>
 .weather-card {
-  background: #fff;
-  border: 1px solid #dee2e6;
-  padding: 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-strong);
+  padding: 14px 16px;
   margin-bottom: 10px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
   position: relative;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+.weather-card:hover {
+  border-color: var(--color-brand);
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-1px);
+}
+.weather-card h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin-bottom: 4px;
+}
+.weather-card p {
+  font-size: 14px;
+  margin-bottom: 8px;
 }
 .badge {
   display: inline-block;
-  padding: 4px 8px;
+  padding: 3px 9px;
   font-size: 12px;
-  border-radius: 4px;
+  font-weight: 700;
+  border-radius: 999px;
   color: #fff;
+  vertical-align: middle;
 }
 .hot {
-  background-color: #ff7675;
+  background-color: var(--color-hot);
 }
 .cool {
-  background-color: #74b9ff;
+  background-color: var(--color-cool);
 }
 .btn-detail {
   position: absolute;
-  right: 12px;
-  top: 15px;
-  padding: 6px 10px;
+  right: 14px;
+  top: 14px;
+  padding: 6px 12px;
+  font-size: 13px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-soft);
+  color: var(--color-text);
   cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+.btn-detail:hover {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: #fff;
 }
 </style>

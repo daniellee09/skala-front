@@ -30,40 +30,54 @@ const handleGoHome = () => {
 </template>
 
 <style scoped>
-.description-box {
-  background-color: #f8f9fa;
-  padding: 12px;
-  border-radius: 6px;
-  line-height: 1.5;
-  font-size: 14px;
+h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-heading);
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--color-brand);
 }
-
+hr {
+  display: none;
+}
+.description-box {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  padding: 18px;
+  border-radius: var(--radius);
+  line-height: 1.7;
+  font-size: 14px;
+  margin-top: 16px;
+}
 ul {
   padding-left: 20px;
-  margin: 8px 0 0 0;
+  margin: 10px 0 0;
 }
-
 li {
   margin-bottom: 6px;
-  color: #555;
+  color: var(--color-text-soft);
 }
-
 code {
-  background-color: #ffeaa7;
-  padding: 2px 4px;
+  background-color: var(--color-surface-mute);
+  padding: 2px 6px;
   border-radius: 4px;
-  color: #d63031;
+  color: var(--color-brand-dark);
+  font-size: 13px;
 }
-
 .home-btn {
   width: 100%;
-  margin-top: 15px;
-  padding: 10px;
-  background-color: #3498db;
-  color: white;
+  margin-top: 16px;
+  padding: 11px;
+  background-color: var(--color-brand);
+  color: #fff;
   border: none;
-  border-radius: 4px;
-  font-weight: bold;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 700;
   cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.home-btn:hover {
+  opacity: 0.88;
 }
 </style>

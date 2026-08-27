@@ -31,25 +31,28 @@ import WeatherParent from '@/components/exercise/WeatherParent.vue'
 
 <style scoped>
 .steps-view h2 {
-  font-size: 20px;
-  font-weight: bold;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--color-heading);
   margin-bottom: 6px;
 }
 .desc {
   font-size: 13px;
-  color: #666;
-  margin-bottom: 20px;
+  color: var(--color-text-soft);
+  margin-bottom: 24px;
 }
 section {
-  margin-bottom: 32px;
+  margin-bottom: 36px;
 }
 section h3 {
-  font-size: 15px;
-  font-weight: bold;
-  padding: 8px 12px;
-  margin-bottom: 12px;
-  background: #f1f3f5;
-  border-left: 4px solid #42b883;
-  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-heading);
+  padding: 9px 14px;
+  margin-bottom: 14px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-brand);
+  border-radius: var(--radius-sm);
 }
 </style>

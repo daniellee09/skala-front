@@ -139,33 +139,38 @@ const activeTab = ref('syntax')
 
 <style scoped>
 .practice-view h2 {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 12px;
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--color-heading);
+  margin-bottom: 14px;
 }
-
 .tab-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #dee2e6;
+  margin-bottom: 18px;
 }
-
 .tab-bar button {
   padding: 8px 14px;
-  border: 1px solid #ced4da;
-  border-radius: 20px;
-  background: #fff;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  background: var(--color-surface);
+  color: var(--color-text-soft);
   font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
 }
-
+.tab-bar button:hover {
+  border-color: var(--color-brand);
+  color: var(--color-text);
+}
 .tab-bar button.active {
-  background: #42b883;
-  border-color: #42b883;
+  background: var(--color-brand);
+  border-color: var(--color-brand);
   color: #fff;
-  font-weight: bold;
 }
 </style>

@@ -87,17 +87,41 @@ onMounted(async () => {
 
 <style scoped>
 .detail-container {
+  max-width: 600px;
   margin: 0 auto;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  background: var(--color-surface);
+  padding: 22px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+.detail-container h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-heading);
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--color-brand);
+  margin-bottom: 4px;
+}
+.detail-container hr {
+  display: none;
 }
 .info-card {
-  background: #f1f2f6;
+  background: var(--color-surface-soft);
+  border: 1px solid var(--color-border);
   padding: 15px;
-  border-radius: 6px;
-  margin: 15px 0;
+  border-radius: var(--radius-sm);
+  margin: 14px 0;
+}
+.info-card h4 {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin-bottom: 8px;
+}
+.info-card p {
+  font-size: 14px;
+  margin-bottom: 4px;
 }
 .forecast-row {
   display: flex;
@@ -106,21 +130,31 @@ onMounted(async () => {
 .forecast-item {
   flex: 1;
   text-align: center;
-  padding: 8px 4px;
-  background: #fff;
-  border-radius: 6px;
+  padding: 10px 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
   font-size: 13px;
 }
 .forecast-item .date {
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 4px;
+  color: var(--color-text-soft);
 }
 .back-btn {
-  padding: 8px 12px;
-  background: #2c3e50;
-  color: white;
+  width: 100%;
+  margin-top: 8px;
+  padding: 10px 12px;
+  background: var(--color-heading);
+  color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
+  transition: opacity 0.15s ease;
+}
+.back-btn:hover {
+  opacity: 0.85;
 }
 </style>

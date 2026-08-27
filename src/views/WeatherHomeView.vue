@@ -95,16 +95,18 @@ const handleDetailJump = (id) => {
 <style scoped>
 .status-bar {
   background: #e8f5e9;
-  padding: 10px;
+  padding: 11px;
   text-align: center;
   color: #2e7d32;
-  font-weight: bold;
-  border-radius: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: var(--radius-sm);
 }
 .error-box {
   background: #fdecea;
-  color: #c0392b;
-  padding: 10px;
-  border-radius: 6px;
+  color: var(--color-danger);
+  padding: 11px 13px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
 }
 </style>

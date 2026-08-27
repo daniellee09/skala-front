@@ -1,51 +1,109 @@
-/* 실습 컴포넌트 공통 스타일 */
+/* ==========================================================================
+   실습(Code Challenge) 컴포넌트 공통 스타일
+   ========================================================================== */
+
 .practice-section {
-  border: 1px solid #dee2e6;
-  border-radius: 8px;
-  padding: 16px 20px;
-  margin-bottom: 20px;
-  background: #fff;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-bottom: 16px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
 }
 
 .practice-section h2 {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 4px;
-  padding-bottom: 8px;
-  border-bottom: 2px solid #42b883;
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-heading);
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--color-brand);
 }
 
 .practice-section h3 {
+  font-size: 13px;
+  font-weight: 700;
+  margin: 16px 0 8px;
+  color: var(--color-text-soft);
+  text-transform: none;
+}
+
+.practice-section p {
   font-size: 14px;
-  font-weight: bold;
-  margin: 12px 0 6px;
-  color: #2c3e50;
+  margin-bottom: 6px;
 }
 
 .practice-section button {
-  padding: 6px 12px;
-  margin-right: 6px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background: #f8f9fa;
+  padding: 7px 13px;
+  margin: 2px 4px 2px 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-soft);
+  color: var(--color-text);
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.practice-section button:hover:not(:disabled) {
+  background: var(--color-brand);
+  border-color: var(--color-brand);
+  color: #fff;
+}
+
+.practice-section button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* 텍스트 계열 입력만 폭을 넓힌다 — 체크박스/라디오는 제외 */
+.practice-section input[type='text'],
+.practice-section input[type='number'],
+.practice-section select,
+.practice-section textarea {
+  padding: 7px 10px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.practice-section input[type='text']:focus,
+.practice-section input[type='number']:focus,
+.practice-section select:focus,
+.practice-section textarea:focus {
+  outline: none;
+  border-color: var(--color-brand);
+}
+
+.practice-section textarea {
+  width: 100%;
+  min-height: 70px;
+  resize: vertical;
+}
+
+.practice-section label {
+  font-size: 14px;
   cursor: pointer;
 }
 
-.practice-section input,
-.practice-section select,
-.practice-section textarea {
-  padding: 6px 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+.practice-section ul {
+  padding-left: 20px;
+  margin: 6px 0;
+  font-size: 14px;
 }
 
 /* watch 계열 모니터 패널 */
 .monitor {
-  background: #e3fafc;
-  border: 1px solid #99e9f2;
-  border-radius: 6px;
-  padding: 10px 12px;
-  margin-top: 10px;
+  background: #e7f5ff;
+  border: 1px solid #a5d8ff;
+  border-radius: var(--radius-sm);
+  padding: 11px 13px;
+  margin-top: 12px;
   font-size: 13px;
 }
 
@@ -59,13 +117,17 @@
   border-color: #ffc9c9;
 }
 
+.monitor h3 {
+  margin-top: 0;
+}
+
 /* 외부 CSS import 실습용 버튼 */
 .btn-external {
   padding: 8px 14px;
-  background-color: #2ecc71;
+  background-color: var(--color-brand);
   color: #fff;
   border: none;
-  border-radius: 4px;
-  font-weight: bold;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
   cursor: pointer;
 }
