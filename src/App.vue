@@ -5,6 +5,9 @@ import UnitToggler from './components/exercise/UnitToggler.vue'
 
 const route = useRoute()
 
+// 어떤 모드로 빌드됐는지 확인용. --mode 에 따라 로드되는 .env 파일이 달라짐
+console.log(`[${import.meta.env.MODE}] API_URL =`, import.meta.env.VITE_API_URL)
+
 // el-menu 는 index 값으로 현재 항목을 판단해서, 주소를 그대로 넘겨줌
 // /weather/seoul 처럼 하위 경로일 때도 대시보드 탭이 켜져 있어야 해서 앞부분만 잘라 씀
 const activeMenu = computed(() => {

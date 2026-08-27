@@ -32,12 +32,14 @@ npm install
 npm run dev
 ```
 
-| 명령어           | 하는 일               |
-| ---------------- | --------------------- |
-| `npm run dev`    | 개발 서버 실행        |
-| `npm run build`  | 배포용 정적 파일 생성 |
-| `npm run lint`   | Oxlint + ESLint 검사  |
-| `npm run format` | Prettier 정렬         |
+| 명령어                  | 하는 일                                      |
+| ----------------------- | -------------------------------------------- |
+| `npm run dev`           | 개발 서버 실행                               |
+| `npm run build`         | 배포용 정적 파일 생성 (`--mode development`) |
+| `npm run build:staging` | 스테이징 모드 빌드 (`.env.staging` 로드)     |
+| `npm run build:prod`    | 운영 모드 빌드 (`.env.production` 로드)      |
+| `npm run lint`          | Oxlint + ESLint 검사                         |
+| `npm run format`        | Prettier 정렬                                |
 
 ## 🔑 API 키 설정
 
@@ -225,6 +227,38 @@ src/
 - 로딩 중 빈 화면 대신 회색 골격이 떠서 화면이 덜컹거리지 않음
 - `stock` 이 `0` 일 때 `||` 를 쓰면 기본값으로 덮인다는 걸 확인하고 **`??` 로 처리** → 0 이 유효한 값으로 살아남음
 - `/steps` 의 과제 1·2 결과물은 그대로 둬서 **적용 전후를 나란히 비교**할 수 있음
+
+### 과제 8 — 품질 관리와 배포
+
+**추가**
+
+- ESLint 커스텀 규칙 — `eqeqeq: ['error', 'always']`, `no-console: 'off'`
+- `.env.staging` / `.env.production` 과 `build:staging` · `build:prod` 스크립트
+- GitHub Actions 워크플로 — `npm ci` → lint → build → Pages 배포
+- SPA 새로고침 대비 `404.html` 폴백 생성 단계
+
+**변경**
+
+- `vite.config.js` 를 함수형으로 바꿔 **빌드일 때만** `base` 를 `/skala-front/` 로 지정
+- `createWebHistory()` → `createWebHistory(import.meta.env.BASE_URL)`
+
+**개선된 점**
+
+- `==` 가 섞이면 빌드 전에 걸림 — 규칙을 넣고 `if (userAge == 20)` 을 넣어보니 `eqeqeq` 로 검출됨
+- 모드별로 로드되는 파일이 갈리는 걸 번들에서 직접 확인 — staging 은 `api-stage`, production 은 `api-prod`, **`--mode development` 는 `.env.development` 가 없어 `undefined`**
+- 로컬 dev 는 `/`, 배포는 `/skala-front/` 로 갈라서 **양쪽 다 경로가 깨지지 않음**
+- `/about` 을 직접 열거나 새로고침해도 404 폴백 덕분에 앱이 뜸
+
+## 배포
+
+GitHub Actions 로 `main` 에 푸시될 때마다 자동 배포됩니다.
+
+```
+https://daniellee09.github.io/skala-front/
+```
+
+> ⚠️ Vite 는 `VITE_` 변수를 **빌드 시점에 번들 안으로 치환**합니다. 저장소에는 키가 없지만
+> 배포된 JS 파일에는 들어가므로, 채점이 끝나면 OpenWeatherMap 키를 폐기하는 편이 좋습니다.
 
 ## 아쉬운 점
 

@@ -41,7 +41,8 @@ const routes = [
 ]
 
 const router = createRouter({
-  history: createWebHistory(),
+  // vite 의 base 를 그대로 넘겨야 GitHub Pages 하위 경로에서도 주소가 맞음
+  history: createWebHistory(import.meta.env.BASE_URL),
   routes,
 })
 
