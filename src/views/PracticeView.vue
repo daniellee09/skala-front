@@ -36,6 +36,8 @@ import WatchersBasic from '@/components/practices/composition/WatchersBasic.vue'
 import WatchersMulti from '@/components/practices/composition/WatchersMulti.vue'
 import WatchersDeep from '@/components/practices/composition/WatchersDeep.vue'
 import WatchersReactive from '@/components/practices/composition/WatchersReactive.vue'
+import WatchersRefArray from '@/components/practices/composition/WatchersRefArray.vue'
+import WatchersReactiveArray from '@/components/practices/composition/WatchersReactiveArray.vue'
 import WatchersWatchEffect from '@/components/practices/composition/WatchersWatchEffect.vue'
 
 // 5장 - 컴포넌트
@@ -116,6 +118,8 @@ const activeTab = ref('syntax')
       <WatchersMulti />
       <WatchersDeep />
       <WatchersReactive />
+      <WatchersRefArray />
+      <WatchersReactiveArray />
       <WatchersWatchEffect />
     </template>
 
