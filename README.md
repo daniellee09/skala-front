@@ -1,5 +1,7 @@
 # ⛅ skala-vue
 
+[![배포 사이트](https://img.shields.io/badge/배포_사이트-skala--front--three.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://skala-front-three.vercel.app/)
+
 SK AX Full-Stack Engineering 과정의 Vue.js 실습 프로젝트입니다.
 
 날씨 대시보드 하나를 계속 고쳐 나가는 방식으로 진행했습니다. 처음엔 배열을 하드코딩한 목업이었고, 여기에 computed와 watch를 붙이고, 컴포넌트로 쪼개고, 라우터와 Pinia를 얹고, 마지막에 OpenWeatherMap 실 API로 갈아끼웠습니다. **단계별 결과물은 지우지 않고 남겨뒀기 때문에** 과제 단계 메뉴에서 순서대로 비교해볼 수 있습니다.
@@ -250,6 +252,8 @@ src/
 ## 배포
 
 Vercel 로 배포했습니다. `main` 에 푸시하면 자동으로 다시 빌드됩니다.
+
+**https://skala-front-three.vercel.app/**
 
 | 항목             | 값                     |
 | ---------------- | ---------------------- |
