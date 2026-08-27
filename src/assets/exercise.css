@@ -26,9 +26,11 @@
   margin-bottom: 10px;
 }
 
-/* 검색창. 셀렉터를 박스 안으로 한정 */
-.search-box input[type='text'],
-.search-inner input[type='text'] {
+/* 검색창. 셀렉터를 박스 안으로 한정.
+   Element Plus 가 만드는 input 은 el- 로 시작하는 클래스를 달고 오는데,
+   거기에 이 테두리까지 붙으면 박스가 이중으로 그려져서 제외함 */
+.search-box input[type='text']:not([class^='el-']),
+.search-inner input[type='text']:not([class^='el-']) {
   width: 100%;
   padding: 9px 12px;
   font-size: 14px;
@@ -39,8 +41,8 @@
   transition: border-color 0.15s ease;
 }
 
-.search-box input[type='text']:focus,
-.search-inner input[type='text']:focus {
+.search-box input[type='text']:not([class^='el-']):focus,
+.search-inner input[type='text']:not([class^='el-']):focus {
   outline: none;
   border-color: var(--color-brand);
 }

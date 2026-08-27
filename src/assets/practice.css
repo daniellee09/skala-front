@@ -31,7 +31,7 @@
   margin-bottom: 6px;
 }
 
-.practice-section button {
+.practice-section button:not([class^='el-']) {
   padding: 7px 13px;
   margin: 2px 4px 2px 0;
   border: 1px solid var(--color-border-strong);
@@ -45,22 +45,23 @@
     border-color 0.15s ease;
 }
 
-.practice-section button:hover:not(:disabled) {
+.practice-section button:not([class^='el-']):hover:not(:disabled) {
   background: var(--color-brand);
   border-color: var(--color-brand);
   color: #fff;
 }
 
-.practice-section button:disabled {
+.practice-section button:not([class^='el-']):disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
-/* 텍스트 입력만 건드림. 체크박스/라디오는 제외 */
-.practice-section input[type='text'],
-.practice-section input[type='number'],
-.practice-section select,
-.practice-section textarea {
+/* 텍스트 입력만 건드림. 체크박스/라디오는 제외.
+   el- 로 시작하는 클래스는 Element Plus 가 자기 스타일을 이미 입혀둔 것 */
+.practice-section input[type='text']:not([class^='el-']),
+.practice-section input[type='number']:not([class^='el-']),
+.practice-section select:not([class^='el-']),
+.practice-section textarea:not([class^='el-']) {
   padding: 7px 10px;
   border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-sm);
@@ -70,15 +71,15 @@
   font-family: inherit;
 }
 
-.practice-section input[type='text']:focus,
-.practice-section input[type='number']:focus,
-.practice-section select:focus,
-.practice-section textarea:focus {
+.practice-section input[type='text']:not([class^='el-']):focus,
+.practice-section input[type='number']:not([class^='el-']):focus,
+.practice-section select:not([class^='el-']):focus,
+.practice-section textarea:not([class^='el-']):focus {
   outline: none;
   border-color: var(--color-brand);
 }
 
-.practice-section textarea {
+.practice-section textarea:not([class^='el-']) {
   width: 100%;
   min-height: 70px;
   resize: vertical;
